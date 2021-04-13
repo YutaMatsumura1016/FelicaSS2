@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity  {
         //データを書き込むメソッド
         public void putDataFromApi() throws IOException {
             String spreadsheetId = "1MXd7VHuOGZDwVmCjQbJk5np87-SLz-dkp3IA0YsGvMs";
-            String range = "data1!A2";
+            String range = "data1!A2";//データはとりあえずIDｍだけ
             ValueRange valueRange = new ValueRange();
             List row = new ArrayList<>();
             List col = Arrays.asList(idmString10);
