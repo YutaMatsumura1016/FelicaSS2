@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity  {
     SoundPool soundPool;
     int soundpi;
     NfcAdapter nfcAdapter;
-    static String idmString10 = "nullllll";
+    static String idmString10 = "エラー：初期値です。コードを確認してください。";
+    static int i = 1;
 
 
 
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity  {
                         soundPool.play(soundpi, 1.0f, 1.0f, 0, 0, 1);
                         //SSに送信
                         getResultsFromApi();
+                        i++;
                     }
                 });
 
@@ -375,7 +377,8 @@ public class MainActivity extends AppCompatActivity  {
         //データを書き込むメソッド
         public void putDataFromApi() throws IOException {
             String spreadsheetId = "1MXd7VHuOGZDwVmCjQbJk5np87-SLz-dkp3IA0YsGvMs";
-            String range = "data1!A2";//データはとりあえずIDｍだけ
+            String str = "A" + i;
+            String range = "data1!"+str;//データはとりあえずIDmだけ
             ValueRange valueRange = new ValueRange();
             List row = new ArrayList<>();
             List col = Arrays.asList(idmString10);

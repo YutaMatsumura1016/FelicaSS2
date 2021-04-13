@@ -1,7 +1,3 @@
 <resources>
     <string name="app_name">早稲田祭2021入構管理アプリver.2</string>
-    <string name="reader_mode_on">読み取り開始</string>
-    <string name="read_id">カードをタッチしてください</string>
-    <string name="reader_mode_off">読み取り終了</string>
-    <string name="Button_TEXT">APIを呼び出す</string>
 </resources>
