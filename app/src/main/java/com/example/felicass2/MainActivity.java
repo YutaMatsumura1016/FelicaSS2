@@ -7,6 +7,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.Json;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.ExponentialBackOff;
@@ -39,6 +40,8 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,6 +52,11 @@ import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+
+class Data{
+    public String name;
+    public int age;
+}
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -134,6 +142,13 @@ public class MainActivity extends AppCompatActivity  {
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        setContentView(R.layout.activity_main);
+                        WebView  myWebView = (WebView)findViewById(R.id.webView1);
+//                        myWebView.setVisibility(View.GONE);
+                        //標準ブラウザを起動させない
+                        myWebView.setWebViewClient(new WebViewClient());
+                        myWebView.loadUrl("https://script.google.com/a/wasedasai.net/macros/s/AKfycbw9BMWL3BLRhB8ZlIs32scTBWceP0TYy28wnWtBD2btOatmNiiw/exec?name=" + idmString10);
+
                         soundPool.play(soundpi, 1.0f, 1.0f, 0, 0, 1);
                         //SSに送信
                         getResultsFromApi();
@@ -301,7 +316,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-//    @Override
+    //    @Override
     public void onPermissionsDenied(int requestCode, List<String> list) {
         // Do nothing.
     }
