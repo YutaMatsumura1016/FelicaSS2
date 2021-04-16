@@ -55,18 +55,15 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity {
 
-    //SS
-    private TextView mOutputText;
-    private Button mCallApiButton;
-    private static final String BUTTON_TEXT = "読み取り開始";
-    private static final String BUTTON_TEXT2 = "読み取り中";
-
-
     //Felica
     SoundPool soundPool;
     int soundpi;
     NfcAdapter nfcAdapter;
     static int i = 1;
+    static String gate;
+
+
+
 
 
     //スーパークラス両方分
@@ -76,9 +73,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //nfcAdapter初期化
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
-        //Felicaシステムここから
-        //オーディオについて
+        //オーディオ
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
@@ -92,14 +90,12 @@ public class MainActivity extends AppCompatActivity {
         soundpi = soundPool.load(this, R.raw.pi_cut, 1);
         //オーディオについてここまで
 
-        //nfcAdapter初期化
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
 
 
         class MyReaderCallback implements NfcAdapter.ReaderCallback {
 
             @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
             public void onTagDiscovered(Tag tag) {
                 //idmを取得
                 byte[] idm = tag.getId();
@@ -112,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String idmString = sb.toString();
                 Log.d("hoge", idmString);
-                MyReaderCallback mr = new MyReaderCallback();
 
 
                 //音を鳴らしてSSに送る
@@ -124,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         WebView myWebView = (WebView) findViewById(R.id.webView1);
                         //標準ブラウザを起動させない
                         myWebView.setWebViewClient(new WebViewClient());
-                        String sentURL = "https://script.google.com/a/wasedasai.net/macros/s/AKfycbw9BMWL3BLRhB8ZlIs32scTBWceP0TYy28wnWtBD2btOatmNiiw/exec?idm=" + idmString;
+                        String sentURL = "https://script.google.com/a/wasedasai.net/macros/s/AKfycbw9BMWL3BLRhB8ZlIs32scTBWceP0TYy28wnWtBD2btOatmNiiw/exec?idm=" + idmString + "&&gate=" + gate;
                         myWebView.loadUrl(sentURL);
                         Log.d("huga", sentURL);
 
@@ -137,44 +132,42 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //------------------元SSAPIのスーパークラス---------------------
-        LinearLayout activityLayout = new LinearLayout(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        activityLayout.setLayoutParams(lp);
-        activityLayout.setOrientation(LinearLayout.VERTICAL);
-        activityLayout.setPadding(16, 16, 16, 16);
+        Button buttonWaseda = findViewById(R.id.buttonWaseda);
 
-        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        mCallApiButton = new Button(this);
-        mCallApiButton.setText(BUTTON_TEXT);
-        mCallApiButton.setOnClickListener(new View.OnClickListener() {
+        buttonWaseda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallApiButton.setEnabled(false);
-                mOutputText.setText("");
-                mCallApiButton.setEnabled(true);
+                MainActivity ma = new MainActivity();
+                String gate1 = "早稲田";
+                ma.gate = gate1;
                 //Felica読み取りスタート
                 nfcAdapter.enableReaderMode(MainActivity.this, new MyReaderCallback(), NfcAdapter.FLAG_READER_NFC_F, null);
-                mCallApiButton.setText(BUTTON_TEXT2);
-
             }
         });
-        activityLayout.addView(mCallApiButton);
 
-        mOutputText = new TextView(this);
-        mOutputText.setLayoutParams(tlp);
-        mOutputText.setPadding(16, 16, 16, 16);
-        mOutputText.setVerticalScrollBarEnabled(true);
-        mOutputText.setMovementMethod(new ScrollingMovementMethod());
-        mOutputText.setText(
-                "「" + BUTTON_TEXT + "」ボタンを押して読み取りを始める");
-        activityLayout.addView(mOutputText);
-        setContentView(activityLayout);
+
+
+        Button buttonToyama = findViewById(R.id.buttonToyama);
+        buttonToyama.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity ma = new MainActivity();
+                String gate1 = "戸山";
+                 ma.gate = gate1;
+
+                //Felica読み取りスタート
+                nfcAdapter.enableReaderMode(MainActivity.this, new MyReaderCallback(), NfcAdapter.FLAG_READER_NFC_F, null);
+            }
+        });
+
+
+
+
+
+
+
+
+
 
 
     }//スーパークラス終わり

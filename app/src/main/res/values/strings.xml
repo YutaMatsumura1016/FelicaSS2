@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">早稲田祭2021入構管理アプリver.3</string>
+    <string name="startButton">読み取り開始</string>
+    <string name="startButton2">読み取り中...</string>
 </resources>
