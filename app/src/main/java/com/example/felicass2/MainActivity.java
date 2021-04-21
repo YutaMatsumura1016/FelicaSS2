@@ -55,13 +55,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Felica
     SoundPool soundPool;
     int soundpi;
     NfcAdapter nfcAdapter;
-    static int i = 1;
     static String gate;
-
 
 
 
@@ -93,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         class MyReaderCallback implements NfcAdapter.ReaderCallback {
 
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -117,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         setContentView(R.layout.activity_main);
                         WebView myWebView = (WebView) findViewById(R.id.webView1);
-                        //標準ブラウザを起動させない
+                        //アプリ内ブラウザを使用
                         myWebView.setWebViewClient(new WebViewClient());
                         String sentURL = "https://script.google.com/a/wasedasai.net/macros/s/AKfycbw9BMWL3BLRhB8ZlIs32scTBWceP0TYy28wnWtBD2btOatmNiiw/exec?idm=" + idmString + "&&gate=" + gate;
                         myWebView.loadUrl(sentURL);
@@ -133,6 +131,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button buttonWaseda = findViewById(R.id.buttonWaseda);
+        Button buttonToyama = findViewById(R.id.buttonToyama);
+        TextView nowReading = findViewById(R.id.nowReading);
+
+
+        //javaがxmlより優先される性質を利用
+        buttonWaseda.setText("早稲田");
+        buttonToyama.setText("戸 山");
+        buttonWaseda.setVisibility(View.VISIBLE);
+        buttonToyama.setVisibility(View.VISIBLE);
+
+
+
+
 
         buttonWaseda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +151,10 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity ma = new MainActivity();
                 String gate1 = "早稲田";
                 ma.gate = gate1;
+
+                nowReading.setText(gate + "キャンパスで読み取りを開始しました。");
+
+
                 //Felica読み取りスタート
                 nfcAdapter.enableReaderMode(MainActivity.this, new MyReaderCallback(), NfcAdapter.FLAG_READER_NFC_F, null);
             }
@@ -147,23 +162,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Button buttonToyama = findViewById(R.id.buttonToyama);
+
         buttonToyama.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 MainActivity ma = new MainActivity();
                 String gate1 = "戸山";
                  ma.gate = gate1;
 
+                nowReading.setText(gate + "キャンパスで読み取りを開始しました。");
+
                 //Felica読み取りスタート
                 nfcAdapter.enableReaderMode(MainActivity.this, new MyReaderCallback(), NfcAdapter.FLAG_READER_NFC_F, null);
             }
         });
-
-
-
-
-
 
 
 

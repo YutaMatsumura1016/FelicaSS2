@@ -6,29 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!--app:background~をいれるとdrawable/button_formの色が反映される-->
     <Button
         android:id="@+id/buttonWaseda"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/button_form_w"
+        android:text=""
         android:textSize="20sp"
-        android:text="早稲田キャンパス"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.62"
+        app:backgroundTint = "#9B042C"
+         />
 
     <Button
         android:id="@+id/buttonToyama"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/button_form_t"
+        android:text=""
         android:textSize="20sp"
-        android:text="戸山キャンパス"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.85"
+        app:backgroundTint = "#18A139"/>
 
 
     <WebView
@@ -36,8 +44,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0"
-
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-36dp" />
+        tools:layout_editor_absoluteY="-25dp" />
+
+    <TextView
+        android:id="@+id/nowReading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
